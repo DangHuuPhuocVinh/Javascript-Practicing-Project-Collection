@@ -67,6 +67,29 @@ class Enemy {
     }
 }
 
+class Particle {
+    constructor(x, y, radius, color, velocity) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color = color;
+        this.velocity = velocity;
+    }
+
+    draw() {
+        c.beginPath();
+        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        c.fillStyle = this.color;
+        c.fill();
+    }
+
+    update() {
+        this.draw();
+        this.x = this.x + this.velocity.x;
+        this.y = this.y + this.velocity.y;
+    }
+}
+
 const x = canvas.width / 2;
 const y = canvas.height / 2;
 
@@ -92,7 +115,7 @@ function spawnEnemy() {
         const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
         const velocity = {
             x: Math.cos(angle),
-            y: Math.sin(angle) 
+            y: Math.sin(angle)
         }
         enemies.push(new Enemy(x, y, radius, color, velocity))
     }, 1000)
@@ -123,10 +146,19 @@ function animate() {
         projectiles.forEach((projectile, projectileIndex) => {
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
             if (dist - enemy.radius - projectile.radius < 1) {
-                setTimeout(() => {
-                    enemies.splice(index, 1);
-                    projectiles.splice(projectileIndex, 1);
-                }, 0)
+                if (enemy.radius - 10 > 5) {
+                    gsap.to(enemy, {
+                        radius: enemy.radius - 10
+                    })
+                    setTimeout(() => {
+                        projectiles.splice(projectileIndex, 1);
+                    }, 0)
+                } else {
+                    setTimeout(() => {
+                        enemies.splice(index, 1);
+                        projectiles.splice(projectileIndex, 1);
+                    }, 0)
+                }
             }
         })
     })
