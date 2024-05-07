@@ -74,19 +74,24 @@ class Particle {
         this.radius = radius;
         this.color = color;
         this.velocity = velocity;
+        this.alpha = 1;
     }
 
     draw() {
+        c.save();
+        c.globalAlpha = 0.1;
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
         c.fillStyle = this.color;
         c.fill();
+        c.restore();
     }
 
     update() {
         this.draw();
         this.x = this.x + this.velocity.x;
         this.y = this.y + this.velocity.y;
+        this.alpha -= 0.01;
     }
 }
 
@@ -130,7 +135,12 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height);
     player.draw();
 
-    particles.forEach(particle => {
+    particles.forEach((particle, index) => {
+        if(particle.alpha <= 0){
+            particles.splice(index, 1);
+        } else {
+            particle.update();
+        }
         particle.update();
     })
     projectiles.forEach((projectile, index) => {
@@ -152,8 +162,8 @@ function animate() {
         projectiles.forEach((projectile, projectileIndex) => {
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
             if (dist - enemy.radius - projectile.radius < 1) {
-                for(let i = 0; i < 8; i++){
-                    particles.push(new Particle(projectile.x, projectile.y, 3, enemy.color, {
+                for(let i = 0; i < enemy.radius * 2; i++){
+                    particles.push(new Particle(projectile.x, projectile.y, Math.random() * 2, enemy.color, {
                         x: Math.random() - 0.5,
                         y: Math.random() - 0.5
                     }));
