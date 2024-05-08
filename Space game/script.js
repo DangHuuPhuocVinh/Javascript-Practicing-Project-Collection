@@ -166,6 +166,7 @@ function animate() {
         const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
         if (dist - enemy.radius - player.radius < 1) {
             cancelAnimationFrame(animationId);
+            modalEl.style.display = 'flex';
         }
         projectiles.forEach((projectile, projectileIndex) => {
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
