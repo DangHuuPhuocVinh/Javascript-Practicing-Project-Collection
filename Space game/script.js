@@ -5,6 +5,9 @@ const c = canvas.getContext('2d');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
+const scoreEl = document.querySelector('#scoreEl')
+
+
 class Player {
     constructor(x, y, radius, color) {
         this.x = x;
@@ -132,6 +135,7 @@ function spawnEnemy() {
 }
 
 let animationId;
+let score = 0;
 function animate() {
     animationId = requestAnimationFrame(animate);
     c.fillStyle = 'rgba(0, 0, 0, 0.1';
@@ -139,7 +143,7 @@ function animate() {
     player.draw();
 
     particles.forEach((particle, index) => {
-        if(particle.alpha <= 0){
+        if (particle.alpha <= 0) {
             particles.splice(index, 1);
         } else {
             particle.update();
@@ -165,13 +169,20 @@ function animate() {
         projectiles.forEach((projectile, projectileIndex) => {
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
             if (dist - enemy.radius - projectile.radius < 1) {
-                for(let i = 0; i < enemy.radius * 2; i++){
+
+                // create explosion of the enemies
+                for (let i = 0; i < enemy.radius * 2; i++) {
                     particles.push(new Particle(projectile.x, projectile.y, Math.random() * 2, enemy.color, {
                         x: (Math.random() - 0.5) * (Math.random() * 6),
                         y: (Math.random() - 0.5) * (Math.random() * 6)
                     }));
                 }
                 if (enemy.radius - 10 > 5) {
+                    // increase the score
+                    score += 100;
+                    scoreEl.innerHTML = score;
+                    
+                    // using api GSAP for render
                     gsap.to(enemy, {
                         radius: enemy.radius - 10
                     })
