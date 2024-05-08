@@ -5,8 +5,9 @@ const c = canvas.getContext('2d');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
-const scoreEl = document.querySelector('#scoreEl')
-
+const scoreEl = document.querySelector('#scoreEl');
+const startGame = document.querySelector('#startGame');
+const modalEl = document.querySelector('#modalEl');
 
 class Player {
     constructor(x, y, radius, color) {
@@ -181,7 +182,7 @@ function animate() {
                     // increase the score
                     score += 100;
                     scoreEl.innerHTML = score;
-                    
+
                     // using api GSAP for render
                     gsap.to(enemy, {
                         radius: enemy.radius - 10
@@ -209,5 +210,8 @@ addEventListener('click', (event) => {
     projectiles.push(new Projectile(canvas.width / 2, canvas.height / 2, 5, 'green', velocity))
 })
 
-animate();
-spawnEnemy();
+startGame.addEventListener('click', () => {
+    animate();
+    spawnEnemy();
+    modalEl.style.display = 'none';
+})
