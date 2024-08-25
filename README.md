@@ -12,7 +12,7 @@ You have to download the git. Each folder will have the index.html file, you jus
 ## **Space game**
  **Description:** This is a web game for you to entertain after working or studying. There is only one spacestation in the team and that is you. You have to shoot the enemy's spaceships for surviving.
  <br>
- **Language programming:** HTML, CSS (Tailwind) and Javascript (GSAP)
+ **Language programming:** HTML, CSS (Tailwind CSS and GSAP) and Javascript
  <br>
  **Guide:** Left click for shooting. More enemy's spaceships are destroyed, more points you will get.
  
