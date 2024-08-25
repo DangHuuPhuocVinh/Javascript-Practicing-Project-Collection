@@ -8,11 +8,11 @@ You have to download the git. Each folder will have the index.html file, you jus
  <br>
  **Language programming:** HTML, CSS and Javascript
  <br>
- **Guide:** First, you need to type the text into the box. After that, you choose the language in the tray below and then you just need press the Speak button to listen the voice
+ **Guide:** Firstly, you need to type the text into the box. After that, you choose the language in the tray below and then you just need press the Speak button to listen to the voice
 ## **Space game**
  **Description:** This is a web game for you to entertain after working or studying. There is only one spacestation in the team and that is you. You have to shoot the enemy's spaceships for surviving.
  <br>
  **Language programming:** HTML, CSS (Tailwind) and Javascript (GSAP)
  <br>
- **Guide:** Left click for shooting. Each enemy'spaceship was destroyed, you will get the point.
+ **Guide:** Left click for shooting. More enemy's spaceships are destroyed, more points you will get.
  
